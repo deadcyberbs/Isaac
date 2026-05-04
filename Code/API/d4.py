@@ -4,7 +4,7 @@ import os
 import the_robot_photo
 import movement
 import chud_detection
-
+not_stop_count = 0
 def regionOfInterest(img, vertices):
     mask = np.zeros_like(img)
     cv2.fillPoly(mask, vertices, 255)
@@ -12,6 +12,7 @@ def regionOfInterest(img, vertices):
     return masked_img
 
 def takeImage():
+    global not_stop_count
     img = the_robot_photo.capture_photo_linux()
     if img is None:
         img = cv2.imread('lane.jpg')
@@ -50,7 +51,6 @@ def takeImage():
             x1, y1, x2, y2 = line[0]
             cv2.line(output_img, (x1, y1), (x2, y2), (255, 0, 0), 3)
     not_stop = True
-    not_stop_count = 0
     cv2.polylines(output_img, big_pts, True, (0, 255, 0), 2)
     cv2.polylines(output_img, small_pts, True, (0, 255, 255), 2)
     if t_det and l_det and r_det and not_stop:
