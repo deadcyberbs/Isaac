@@ -56,6 +56,7 @@ def takeImage():
     elif t_det and r_det: direction = "LEFT"
     elif t_det and l_det: direction = "RIGHT"
     elif r_det or l_det: direction = "FORWARD"
+    elif t_det: direction = "Searching for side"
     else: direction = "SEARCHING"
 
     cv2.putText(output_img, f"Dir: {direction}", (50, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
@@ -66,4 +67,5 @@ def apply_movement(direction):
     if direction == "STOP": movement.stop_all()
     elif direction == "LEFT": movement.move_left(55, 0.3)
     elif direction == "RIGHT": movement.move_right(55, 0.3)
+    elif direction == "Searching for side": movement.move_left(55,0.1)
     elif direction == "FORWARD" or direction == "SEARCHING": movement.move_forward(40, 0.3)
