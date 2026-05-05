@@ -75,7 +75,7 @@ def takeImage():
             print(not_stop_count)
         else:
             direction = "STOP"
-            not_stop_count = 0
+            not_stop_count = 10
     elif t_det and r_det:
         direction = "LEFT"
     elif t_det and l_det:
