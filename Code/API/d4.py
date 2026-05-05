@@ -72,6 +72,7 @@ def takeImage():
             movement.move_left(55, 0.1)
             direction = "STOP"
             not_stop_count += 1
+            print(not_stop_count)
         else:
             direction = "STOP"
             not_stop_count = 0
