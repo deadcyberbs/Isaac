@@ -68,7 +68,7 @@ def takeImage():
     cv2.polylines(output_img, small_pts, True, (0, 255, 255), 2)
 
     if t_det and l_det and r_det and not_stop:
-        if not_stop_count < 10:
+        if not_stop_count <= 5:
             movement.move_left(55, 0.1)
             direction = "STOP"
             not_stop_count += 1
