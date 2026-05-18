@@ -24,9 +24,11 @@ def takeImage():
         img = cv2.imread('lane.jpg')
     if img is None:
         return None, "ERROR"
-
+    h,w = img.shape[:2]
+    cropheight = h*0.9
+    cropped_img_for_chud = img[0:cropheight, :]
     if not chud_detection.chud_detected:
-        chud_detection.detect(img)
+        chud_detection.detect(cropped_img_for_chud)
 
     h, w = img.shape[:2]
     center_x = w // 2
