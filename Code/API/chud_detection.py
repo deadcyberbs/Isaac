@@ -10,7 +10,7 @@ chud_detected = False
 def detect(img):
     global chud_detected
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-
+    gauss = cv2.GaussianBlur(hsv, 5)
     # 1. Define Known Background Color Ranges (Lower, Upper)
     # Turquoise/Blue Tape (from your original code)
     lower_turquoise = np.array([80, 50, 50])
@@ -25,9 +25,9 @@ def detect(img):
     upper_tile = np.array([50, 40, 90])
 
     # 2. Create masks for all allowed background elements
-    mask_turquoise = cv2.inRange(hsv, lower_turquoise, upper_turquoise)
-    mask_grout = cv2.inRange(hsv, lower_grout, upper_grout)
-    mask_tile = cv2.inRange(hsv, lower_tile, upper_tile)
+    mask_turquoise = cv2.inRange(gauss, lower_turquoise, upper_turquoise)
+    mask_grout = cv2.inRange(gauss, lower_grout, upper_grout)
+    mask_tile = cv2.inRange(gauss, lower_tile, upper_tile)
 
     # 3. Combine all allowed background elements into one mask
     # cv2.bitwise_or means "if it is tile OR grout OR tape, it is background"
