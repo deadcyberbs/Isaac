@@ -1,7 +1,17 @@
 import threading
 import time
-import RobotController
-Motor = RobotController.MotorDriver()
+
+try:
+    import RobotController
+    Motor = RobotController.MotorDriver()
+    print("Hardware detected. Motors armed.")
+except (ImportError, OSError, NameError) as e:
+    print("WARNING: Robot hardware not found. Running in GUI Test Mode.")
+    class FakeMotor:
+        def MotorRun(self, *args): pass
+        def MotorStop(self, *args): pass
+    Motor = FakeMotor()
+
 class MotionManager:
     def __init__(self, motor):
         self.motor = motor
